@@ -11,6 +11,13 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
+    /* Created By: Christina May Pakingan
+   Student #: 301121940
+   COMP 123 - Assignment 4 - BMI Calculator
+   Created on: July 29, 2020
+   Modified: August 4,2020
+    Last Modification: August 5, 2020
+*/
     public partial class Form1 : Form
     {
         public Form1()
@@ -56,48 +63,62 @@ namespace WindowsFormsApp1
 
         private void ResetButton_Click(object sender, EventArgs e)
         {
+            // clear out all text boxes 
             heightTextBox.Clear();
             weightTextBox.Clear();
             resultTextBox.Clear();
+            resultLabel.Text = "";
         }
 
         private void CalculateButton_Click(object sender, EventArgs e)
         {
-            double bmi;
-            string result="";
-            double weight = Convert.ToDouble(weightTextBox.Text);
-            double height = Convert.ToDouble(heightTextBox.Text);
-            if (metricRadioButton.Checked)
+
+            //check if text boxes are empty and display error message
+            if (string.IsNullOrEmpty(weightTextBox.Text) || (string.IsNullOrEmpty(heightTextBox.Text)))
             {
-                double heightInMeter = height / 100;
-                bmi = weight / (heightInMeter * heightInMeter);
+                MessageBox.Show("Please Enter your Weight and Height!", "Error Message");
             }
             else
             {
-                bmi = (weight * 703) / (height*height);
-            }
+                double bmi = 0;
+                var result = "";
+                double weight = Convert.ToDouble(weightTextBox.Text);
+                double height = Convert.ToDouble(heightTextBox.Text);
 
-            if (bmi < 18.50)
-            {
-                result = "Underweight";
-            }
-            else if (bmi <= 24.9)
-            {
-                result = "Normal";
-            }
-            else if (bmi <= 29.9)
-            {
-                result = "Overweight";
-            }
-            else if (bmi >= 30)
-            {
-                result = "Obese";
-            }
 
-            Debug.WriteLine(bmi);
-            resultTextBox.Text = $"Your BMI is {Math.Round(bmi,2)}/ {result}";
+                if (metricRadioButton.Checked)
+                {
+                    double heightInMeter = height/100;
+                    bmi = weight / (heightInMeter * heightInMeter);
+                }
+                else
+                {
+                    bmi = (weight * 703) / (height * height);
+                }
 
+                if (bmi < 18.50)
+                {
+                    result = "Underweight";
+                }
+                else if (bmi <= 24.9)
+                {
+                    result = "Normal";
+                }
+                else if (bmi <= 29.9)
+                {
+                    result = "Overweight";
+                }
+                else if (bmi >= 30)
+                {
+                    result = "Obese";
+                }
+
+                // display the result in 2 decimal places
+                resultTextBox.Text = $"{Math.Round(bmi, 2)}";
+                resultLabel.Text = result;
+            }
         }
+
 
         private void imperialRadioButton_CheckedChanged(object sender, EventArgs e)
         {
@@ -108,6 +129,7 @@ namespace WindowsFormsApp1
                 heightTextBox.Clear();
                 weightTextBox.Clear();
                 resultTextBox.Clear();
+                resultLabel.Text = "";
 
             }
         }
@@ -121,7 +143,10 @@ namespace WindowsFormsApp1
                 heightTextBox.Clear();
                 weightTextBox.Clear();
                 resultTextBox.Clear();
+                resultLabel.Text = "";
             }
         }
+
+       
     }
 }
