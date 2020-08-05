@@ -80,6 +80,7 @@ namespace WindowsFormsApp1
             }
             else
             {
+                // if textbox are not empty -  proceed will calculation
                 double bmi = 0;
                 var result = "";
                 double weight = Convert.ToDouble(weightTextBox.Text);
@@ -122,10 +123,13 @@ namespace WindowsFormsApp1
 
         private void imperialRadioButton_CheckedChanged(object sender, EventArgs e)
         {
+            // changes in textbox default text when user chooses imperial button
             if (imperialRadioButton.Checked)
             {
                 kgtextbbox.Text = "lbs";
                 cmtextBox.Text = "in";
+
+                //clear textboxes to accept new input
                 heightTextBox.Clear();
                 weightTextBox.Clear();
                 resultTextBox.Clear();
@@ -136,10 +140,12 @@ namespace WindowsFormsApp1
 
         private void metricRadioButton_CheckedChanged(object sender, EventArgs e)
         {
+            // changes in textbox default text when user chooses imperial button
             if (metricRadioButton.Checked)
             {
                 kgtextbbox.Text = "kg";
                 cmtextBox.Text = "cm";
+                //clear textboxes to accept new input
                 heightTextBox.Clear();
                 weightTextBox.Clear();
                 resultTextBox.Clear();
